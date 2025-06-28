@@ -81,11 +81,11 @@ passport.use(new GoogleStrategy({
 }));
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {  const token = jwt.sign({ id: req.user.id, name: req.user.name, email: req.user.email, avatar: req.user.avatar }, process.env.JWT_SECRET || 'jwtsecret', { expiresIn: '7d' });
-  res.redirect(`${process.env.FRONTEND_URL || 'http://localhost:5173'}/?token=${token}`);
+  res.redirect(`${process.env.FRONTEND_URL}/?token=${token}`);
 });
 app.get('/auth/logout', (req, res) => {
   req.logout(() => {
-    res.redirect(process.env.FRONTEND_URL || 'http://localhost:5173');
+    res.redirect(process.env.FRONTEND_URL);
   });
 });
 
@@ -94,6 +94,8 @@ app.use("/api", boardRouter);
 app.get('/', (req, res) => {
     res.send('Hello World')
 })
+
+
 
 const server = http.createServer(app);
 const io = new Server(server, {
