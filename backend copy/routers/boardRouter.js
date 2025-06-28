@@ -3,7 +3,6 @@ const boardController = require('../controllers/boardController');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-// Health check endpoint
 router.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Board API is running', timestamp: new Date().toISOString() });
 });

@@ -39,7 +39,6 @@ exports.updateBoard = async (req, res, next) => {
   try {
     const { data, name } = req.body;
     
-    // Check payload size
     const payloadSize = JSON.stringify(req.body).length;
     console.log(`Payload size: ${payloadSize} bytes`);
     
@@ -51,17 +50,14 @@ exports.updateBoard = async (req, res, next) => {
       });
     }
     
-    // Check if board exists first
     let board = await Board.findById(req.params.id);
     if (!board) {
-      // If board doesn't exist, create it (for development/testing)
       board = new Board({ 
         _id: req.params.id,
         name: name || 'New Board', 
         data: data || [] 
       });
     } else {
-      // Update existing board
       board.data = data || board.data;
       if (name) board.name = name;
     }
@@ -81,7 +77,6 @@ exports.deleteBoard = async (req, res, next) => {
   try {
     const board = await Board.findByIdAndDelete(req.params.id);
     if (!board) return res.status(404).json({ message: 'Board not found' });
-    // Notify all users in the room
     io.to(req.params.id).emit('room-ended');
     res.status(204).json({ message: 'Board deleted' });
   } catch (err) {

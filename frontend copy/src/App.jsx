@@ -11,8 +11,8 @@ function parseJwt(token) {
   }
 }
 
-const GOOGLE_AUTH_URL = "https://coflow-backend.onrender.com/auth/google";
-const LOGOUT_URL = "https://coflow-backend.onrender.com//auth/logout";
+const GOOGLE_AUTH_URL = "http://localhost:3000/auth/google";
+const LOGOUT_URL = "http://localhost:3000/auth/logout";
 
 function App() {
   const [session, setSession] = useState(null); // { name, roomId, isCreator }
@@ -25,7 +25,6 @@ function App() {
   const [showWhiteboard, setShowWhiteboard] = useState(false);
   const socketRef = useRef(null);
 
-  // Handle JWT from URL (after Google login)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
@@ -33,16 +32,13 @@ function App() {
       setJwt(token);
       localStorage.setItem('jwt', token);
       setUser(parseJwt(token));
-      // Automatically redirect to whiteboard after successful login
       setShowWhiteboard(true);
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
 
-  // Listen for room-ended event
   useEffect(() => {
     if (!session) return;
-    // Dynamically import socket.io-client and connect
     import('socket.io-client').then(({ default: io }) => {
       socketRef.current = io('http://localhost:3000');
       socketRef.current.emit('join-board', session.roomId);
@@ -79,7 +75,6 @@ function App() {
     setSession(null);
   };
 
-  // If user is authenticated and should show whiteboard
   if (user && showWhiteboard) {
     return (
       <div style={{
