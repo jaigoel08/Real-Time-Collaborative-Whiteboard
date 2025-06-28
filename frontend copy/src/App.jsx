@@ -11,8 +11,8 @@ function parseJwt(token) {
   }
 }
 
-const GOOGLE_AUTH_URL = "http://localhost:3000/auth/google";
-const LOGOUT_URL = "http://localhost:3000/auth/logout";
+const GOOGLE_AUTH_URL = "https://coflow-backend.onrender.com/auth/google";
+const LOGOUT_URL = "https://coflow-backend.onrender.com/auth/logout";
 
 function App() {
   const [session, setSession] = useState(null); // { name, roomId, isCreator }
@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     if (!session) return;
     import('socket.io-client').then(({ default: io }) => {
-      socketRef.current = io('http://localhost:3000');
+      socketRef.current = io('https://coflow-backend.onrender.com');
       socketRef.current.emit('join-board', session.roomId);
       socketRef.current.on('room-ended', () => {
         setEnded(true);
