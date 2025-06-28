@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import Konva from 'konva';
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:3000';
-const API_URL = 'http://localhost:3000/api/boards';
+const SOCKET_URL = 'https://coflow-backend.onrender.com/';
+const API_URL = 'https://coflow-backend.onrender.com/api/boards';
 
 const TOOLS = {
   SELECT: 'select',

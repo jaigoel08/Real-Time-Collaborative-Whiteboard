@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const API_URL = 'http://localhost:3000/api/boards';
-const GOOGLE_AUTH_URL = "http://localhost:3000/auth/google";
+const API_URL = 'https://coflow-backend.onrender.com//api/boards';
+const GOOGLE_AUTH_URL = "https://coflow-backend.onrender.com//auth/google";
 
 const RoomEntry = ({ onJoin, jwt, user, handleLogin, handleLogout }) => {
   const [name, setName] = useState('');

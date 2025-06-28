@@ -11,8 +11,8 @@ function parseJwt(token) {
   }
 }
 
-const GOOGLE_AUTH_URL = "http://localhost:3000/auth/google";
-const LOGOUT_URL = "http://localhost:3000/auth/logout";
+const GOOGLE_AUTH_URL = "https://coflow-backend.onrender.com/auth/google";
+const LOGOUT_URL = "https://coflow-backend.onrender.com//auth/logout";
 
 function App() {
   const [session, setSession] = useState(null); // { name, roomId, isCreator }
